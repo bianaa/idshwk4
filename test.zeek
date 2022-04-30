@@ -1,9 +1,12 @@
 event zeek_init()
-  {
+        {
 	print "Hello, World!";
 	}
+	
 global record_table :  table[addr] of table[count] of int = table();
+
 global record_404url :  table[addr] of set[string] = table();
+
 event http_reply(c: connection, version: string, code: count, reason: string)
 {	
 	local ip :addr= c$id$orig_h;
@@ -37,7 +40,7 @@ event http_reply(c: connection, version: string, code: count, reason: string)
 		{
 			if(uri in record_404url[ip])
 			{
-				# do nothing
+			
 			}
 			else{
 				add record_404url[ip][uri];
@@ -46,8 +49,7 @@ event http_reply(c: connection, version: string, code: count, reason: string)
 		else{
 			record_404url[ip]=set();
 			if(uri in record_404url[ip])
-			{
-				# do nothing
+                        {
 			}
 			else{
 				add record_404url[ip][uri];
